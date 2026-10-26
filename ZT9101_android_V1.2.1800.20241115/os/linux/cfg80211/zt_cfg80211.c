@@ -4110,7 +4110,11 @@ static zt_s32 cfg80211_remain_on_channel_cb(struct wiphy *wiphy,
         enum nl80211_channel_type
         channel_type,
 #endif
-        zt_u32 duration, zt_u64 *cookie)
+        zt_u32 duration, zt_u64 *cookie
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(7, 2, 0))
+	, const zt_u8* rx_addr
+#endif //7.2.0
+	)
 {
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 6, 0))
     struct net_device *ndev = wdev->netdev;
@@ -4263,7 +4267,7 @@ static zt_s32 cfg80211_cancel_remain_on_channel_cb(struct wiphy *wiphy,
     return 0;
 
 }
-#endif
+#endif // ZT_CONFIG_P2P
 
 static struct cfg80211_ops zt_cfg80211_ops =
 {

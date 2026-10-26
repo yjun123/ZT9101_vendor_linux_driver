@@ -36,7 +36,14 @@ typedef struct tasklet_struct       zt_tasklet;
 #define zt_inline                   __always_inline
 
 #define zt_strchr                   strchr
-#define zt_strncpy                  strncpy
+
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(7,2,0))
+	#define zt_strncpy                  strscpy_pad 
+#else
+
+	#define zt_strncpy                  strncpy
+#endif
+
 #define zt_strncmp                  strncmp
 #define zt_strcmp                   strcmp
 #define zt_memcpy                   memcpy
