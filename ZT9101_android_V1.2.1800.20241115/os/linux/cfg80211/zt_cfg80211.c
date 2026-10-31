@@ -24,6 +24,7 @@
 #include "hif.h"
 #include "zt_cfg80211.h"
 #include "android/android_priv_cmd.h"
+#include "os_priv.h"
 
 #ifdef CONFIG_IOCTL_CFG80211
 
@@ -46,7 +47,7 @@ struct cfg80211_crypt
     zt_u8 set_tx;
     zt_u8 idx;
     zt_u16 key_len;
-    zt_u8 key[0];
+    zt_u8 key[];
 } ;
 
 zt_s32 zt_cfg80211_p2p_rx_mgmt(void *nic_info, void *param, zt_u32 param_len);
@@ -492,7 +493,7 @@ static zt_s32 cfg80211_ap_set_encryption(nic_info_st *pnic_info,
     CFG80211_DBG();
 
     if (param_len <
-            ZT_FIELD_SIZEOF(struct cfg80211_crypt, key) + param->key_len)
+            ZT_OFFSETOF(struct cfg80211_crypt, key) + param->key_len)
     {
         CFG80211_WARN("param_len invalid !!!!!!!");
         res = -EINVAL;

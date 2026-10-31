@@ -59,7 +59,7 @@ typedef struct
     zt_u32 alloc_value_size;
     zt_msg_tag_t tag;
     zt_u32 len;
-    zt_u8 value[0];
+    zt_u8 value[];
 } zt_msg_t;
 
 /* function */
