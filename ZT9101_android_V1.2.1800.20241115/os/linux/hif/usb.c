@@ -876,7 +876,7 @@ static zt_s32 zt_usb_probe(struct usb_interface *pusb_intf,
 
     USB_DBG("[usb] match usb_device !!");
 
-    pusb_mngt = zt_kzalloc(sizeof(hif_usb_mngt));
+    pusb_mngt = zt_kzalloc(sizeof(hif_usb_mngt)); //TODO: review if actualy dymanic allocation really needed
     if (NULL == pusb_mngt)
     {
         LOG_E("zt_kzalloc for usb_mngt failed");
