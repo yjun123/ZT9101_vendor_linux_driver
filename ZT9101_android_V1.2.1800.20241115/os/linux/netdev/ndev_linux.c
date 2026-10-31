@@ -584,8 +584,11 @@ static zt_s32 ndev_set_mac_addr(struct net_device *pnetdev, void *addr)
         return -ENOSYS;
     }
 
-    /* update mac address */
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(5, 17, 0))
+    eth_hw_addr_set(pnetdev, sock_addr->sa_data);
+#else
     zt_memcpy(pnetdev->dev_addr, sock_addr->sa_data, ZT_80211_MAC_ADDR_LEN);
+#endif
 
     zt_memcpy(nic_to_local_addr(pnic_info), sock_addr->sa_data,
               ZT_80211_MAC_ADDR_LEN);
