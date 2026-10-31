@@ -29,7 +29,7 @@
   SUBDIR = mak
   PLATDIR = platform
   CT                       ?= n
-  CONFIG_DEBUG_LEVEL        = 0
+  CONFIG_DEBUG_LEVEL        = 3
   CONFIG_DRIVER_VER         = V1.2.xxx.xxxxxxxx
   CONFIG_MODULE_IMPORT_NS   = n
   CONFIG_FW_FILE            = y
