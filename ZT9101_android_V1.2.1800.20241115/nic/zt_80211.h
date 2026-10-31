@@ -1175,7 +1175,7 @@ typedef struct
             zt_80211_mgmt_capab_t capab;
             /* followed by some of SSID, Supported rates,
              * FH Params, DS Params, CF Params, IBSS Params, TIM */
-            zt_u8 variable[0];
+            zt_u8 variable[];
         } zt_packed beacon, probe_resp;
         /* probe */
         struct
@@ -1190,7 +1190,7 @@ typedef struct
             zt_u16 auth_transaction;
             zt_u16 status_code;
             /* possibly followed Challenge text */
-            zt_u8 variable[0];
+            zt_u8 variable[];
         } zt_packed auth;
         struct auth_seq3_ie
         {
@@ -1217,7 +1217,7 @@ typedef struct
             zt_u16 capab_info;
             zt_u16 listen_interval;
             /* followed by SSID and Supported rates */
-            zt_u8 variable[0];
+            zt_u8 variable[];
         } zt_packed assoc_req;
         struct
         {
@@ -1225,7 +1225,7 @@ typedef struct
             zt_u16 status_code;
             zt_u16 aid;
             /* followed by Supported rates */
-            zt_u8 variable[0];
+            zt_u8 variable[];
         } zt_packed assoc_resp;
         struct
         {
@@ -1233,7 +1233,7 @@ typedef struct
             zt_u16 listen_interval;
             zt_80211_addr_t current_ap;
             /* followed by SSID and Supported rates */
-            zt_u8 variable[0];
+            zt_u8 variable[];
         } zt_packed reassoc_req;
         struct
         {
@@ -1241,13 +1241,13 @@ typedef struct
             zt_u16 status_code;
             zt_u16 aid;
             /* followed by Supported rates */
-            zt_u8 variable[0];
+            zt_u8 variable[];
         } zt_packed reassoc_resp;
         struct action_ie
         {
             zt_u8 action_category;
             zt_u8 action_field;
-            zt_u8 variable[0];
+            zt_u8 variable[];
         } zt_packed action;
     };
 } zt_packed zt_80211_mgmt_t;
