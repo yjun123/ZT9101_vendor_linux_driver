@@ -16,7 +16,7 @@
  */
 #ifndef __RX_LINUX__
 #define __RX_LINUX__
-#if (LINUX_VERSION_CODE >= KERNEL_VERSION(6,5,0))
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(6,0,0))
 #define netif_rx_ni(x) netif_rx(x)
 #endif
 void mpdu_process(struct net_device *ndev, zt_u8 *buf, zt_u16 buf_size);
