@@ -2789,7 +2789,7 @@ inline struct proc_dir_entry *zt_proc_create_dir(const zt_s8 *name,
     return entry;
 }
 
-#if LINUX_VERSION_CODE > KERNEL_VERSION(5, 5, 0)
+#if LINUX_VERSION_CODE > KERNEL_VERSION(5, 6, 0)
 inline struct proc_dir_entry *zt_proc_create_entry(const zt_s8 *name,
         struct proc_dir_entry *parents,
         const struct proc_ops *fops, void *data)
@@ -2850,7 +2850,7 @@ static zt_s32 zt_proc_open(struct inode *inode, struct file *file)
 
 }
 
-#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 5, 0)
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 6, 0)
 static const struct proc_ops zt_proc_fops =
 {
     //.owner = THIS_MODULE,

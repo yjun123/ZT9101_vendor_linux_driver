@@ -75,9 +75,8 @@ for station mode with WPA2.
 |---|---|
 | 7.x | Tested |
 | 6.x | Tested |
-| 5.15.x | Tested |
-| 5.10.x | Tested |
-| 5.5.x| Not worked (struct proc_ops changed) |
+| 5.x | Tested |
+| 4.x | Compile, but not tested |
 ## Driver Structure
 
 The driver source is in the `ZT9101_android_V1.2.1800.20241115/` subdirectory:
