@@ -73,10 +73,10 @@ for station mode with WPA2.
 
 | Kernel Version | Status |
 |---|---|
-| 7.1.x (Fedora 44) | Tested and working |
-| 6.x | Should work (not tested) |
-| < 6.0 | Not tested |
-
+| 7.x | Tested |
+| 6.x | Tested |
+| 5.x | Tested |
+| 4.x | Compile, but not tested |
 ## Driver Structure
 
 The driver source is in the `ZT9101_android_V1.2.1800.20241115/` subdirectory:

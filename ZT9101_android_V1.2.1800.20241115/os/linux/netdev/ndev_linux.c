@@ -37,6 +37,15 @@
 #define NDEV_WARN(fmt, ...)     LOG_W("[%s:%d]"fmt, __func__, __LINE__, ##__VA_ARGS__)
 #define NDEV_ERROR(fmt, ...)    LOG_E("[%s:%d]"fmt, __func__, __LINE__, ##__VA_ARGS__)
 
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(7,4, 0) || \
+    LINUX_VERSION_CODE >= KERNEL_VERSION(6, 1, 255) && LINUX_VERSION_CODE < KERNEL_VERSION(6, 2, 0) //6.1.(255+)
+
+#define ZT_NDO_IOCTL ndo_eth_ioctl
+#else
+#define ZT_NDO_IOCTL ndo_do_ioctl
+#endif
+
+
 enum
 {
     ZT_HOSTAPD_FLUSH                    = 1,
@@ -584,8 +593,11 @@ static zt_s32 ndev_set_mac_addr(struct net_device *pnetdev, void *addr)
         return -ENOSYS;
     }
 
-    /* update mac address */
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(5, 17, 0))
+    eth_hw_addr_set(pnetdev, sock_addr->sa_data);
+#else
     zt_memcpy(pnetdev->dev_addr, sock_addr->sa_data, ZT_80211_MAC_ADDR_LEN);
+#endif
 
     zt_memcpy(nic_to_local_addr(pnic_info), sock_addr->sa_data,
               ZT_80211_MAC_ADDR_LEN);
@@ -689,7 +701,7 @@ static const struct net_device_ops ndev_ops =
 #endif
     .ndo_set_mac_address = ndev_set_mac_addr,
     .ndo_get_stats = ndev_get_stats,
-    .ndo_do_ioctl = ndev_ioctl,
+    .ZT_NDO_IOCTL = ndev_ioctl,
 };
 #endif
 
@@ -722,7 +734,7 @@ static const struct net_device_ops ndev_vir_ops =
 #endif
     .ndo_set_mac_address = ndev_set_mac_addr,
     .ndo_get_stats = ndev_get_stats,
-    .ndo_do_ioctl = ndev_ioctl,
+    .ZT_NDO_IOCTL = ndev_ioctl,
 };
 #endif
 
@@ -766,12 +778,12 @@ static zt_s32 _ndev_notifier_cb(struct notifier_block *nb,
         return NOTIFY_DONE;
     }
 
-    if (ndev->netdev_ops->ndo_do_ioctl == NULL)
+    if (ndev->netdev_ops->ZT_NDO_IOCTL == NULL)
     {
         return NOTIFY_DONE;
     }
 
-    if (ndev->netdev_ops->ndo_do_ioctl != ndev_ioctl)
+    if (ndev->netdev_ops->ZT_NDO_IOCTL != ndev_ioctl)
 #else
     if (ndev->do_ioctl == NULL)
     {
